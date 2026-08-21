@@ -1,0 +1,13 @@
+h1{
+            color: blue;
+        }
+        a{
+            text-decoration: none;
+            background-color: coral;
+            color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+        }
+        a:hover{
+            background-color: brown;
+        }
