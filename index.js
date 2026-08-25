@@ -21,6 +21,7 @@ const client = new MongoClient(url);
 
 // dbConnection()
 
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -138,9 +139,12 @@ client.connect().then((connection) => {
     const filter = { _id: new ObjectId(req.params.id) };
     const update = { $set: req.body };
     const result = await collection.updateOne(filter, update);
-    if (result)
-      res.send({ message: "Data Updated", succees: true, result: req.body });
-    else       res.send({ message: "Data Not Updated", succees: false, result: null });
+    if (result){
+
+    
+      res.send({ message: "Data Updated", succees: true, result: req.body });}
+    else     {  res.send({ message: "Data Not Updated", succees: false, result: null });
+    }
 
   });
 });
