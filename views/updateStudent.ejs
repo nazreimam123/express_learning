@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+</head>
+<body>
+    <form method="post" action="/ui/update/<%= result._id %>">
+      <input type="text" name="name" value="<%= result.name %>" placeholder="Enter Student Name" />
+      <br></br>
+      <input type="text" name="email" value="<%= result.email %>"  placeholder="Enter Student Email" />
+      <br></br>
+      <input type="text" name="age" value="<%= result.age %>"  placeholder="Enter Student Age" />
+      <br></br>
+      <button>Update Data</button>
+      </form>
+</body>
+</html>

@@ -1,5 +1,5 @@
 //45 Connect MongoDB with Nodejs && 46 Display MongoDB Data
-// 49 - post api , 50 - Delete api
+// 49 - post api , 50 - Delete api , 51,52 Update api
 import express from "express";
 import { MongoClient, ObjectId } from "mongodb";
 
@@ -88,17 +88,60 @@ client.connect().then((connection) => {
   app.get("/ui/delete/:id", async (req, res) => {
     console.log(req.params.id);
     const collectionn = db.collection("student");
-    const result = await collectionn.deleteOne({ _id: new ObjectId(req.params.id) });
+    const result = await collectionn.deleteOne({
+      _id: new ObjectId(req.params.id),
+    });
     if (result) {
       // res.send({ message: "Student Data Deleted", succees: true });
-      res.send("<h1>Studet record deleted</h1>")
+      res.send("<h1>Studet record deleted</h1>");
     } else {
-       res.send("<h1>Studet record not deleted</h1>")
+      res.send("<h1>Studet record not deleted</h1>");
       // res.send({
       //   message: "Student Data Not Delete , Try again later",
       //   succees: false,
       // });
     }
+  });
+
+  // 51 Update api
+  app.get("/ui/student/:id", async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const collection = db.collection("student");
+    const result = await collection.findOne({
+      _id: new ObjectId(req.params.id),
+    });
+
+    res.render("updateStudent", { result });
+  });
+  app.get("/student/:id", async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const collection = db.collection("student");
+    const result = await collection.findOne({
+      _id: new ObjectId(req.params.id),
+    });
+
+    // res.render('updateStudent',{result});
+    res.send({
+      message: "data",
+      succees: true,
+      result: result,
+    });
+  });
+
+  //52 update data api
+  app.put("/update/:id", async (req, res) => {
+    console.log(req.body);
+    console.log(req.params.id);
+    const collection = db.collection("student");
+    const filter = { _id: new ObjectId(req.params.id) };
+    const update = { $set: req.body };
+    const result = await collection.updateOne(filter, update);
+    if (result)
+      res.send({ message: "Data Updated", succees: true, result: req.body });
+    else       res.send({ message: "Data Not Updated", succees: false, result: null });
+
   });
 });
 
