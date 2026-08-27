@@ -1,3 +1,31 @@
+//Mongoose package  53
+
+import mongoose from "mongoose";
+
+
+async function dbConnection(){
+  await  mongoose.connect('mongodb://localhost:27017/school');
+  const schema = mongoose.Schema({
+    name:String,
+    age:Number,
+    email:String,
+    
+  },
+  {
+    collection: "student"
+  }
+)
+
+  const studentModel= mongoose.model('student',schema);
+  const result =await studentModel.find();
+  console.log(result);
+}
+
+dbConnection()
+
+
+//mongoDB package
+/*
 //45 Connect MongoDB with Nodejs && 46 Display MongoDB Data
 // 49 - post api , 50 - Delete api , 51,52 Update api
 import express from "express";
@@ -148,6 +176,7 @@ client.connect().then((connection) => {
 
   });
 });
+*/
 
 // app.set("view engine",'ejs')
 
@@ -164,7 +193,7 @@ client.connect().then((connection) => {
 
 // })
 
-app.listen(3210);
+// app.listen(3210);
 //44 Basic cmd MongoDB
 
 //43  MongoDB installation
