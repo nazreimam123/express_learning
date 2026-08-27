@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
 
-export default studentSchema= mongoose.Schema({
+const studentSchema= mongoose.Schema({
     name:String,
     age:Number,
     email:String,
-})
+},
+{
+    collection:'student'
+}
+)
+
+export default studentSchema;

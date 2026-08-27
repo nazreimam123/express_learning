@@ -1,27 +1,45 @@
-//Mongoose package  53
+//Mongoose package  53, 54
 
 import mongoose from "mongoose";
 
+import express from 'express';
+import studentModel from "./mongoose/model/studentModel.js";
 
-async function dbConnection(){
-  await  mongoose.connect('mongodb://localhost:27017/school');
-  const schema = mongoose.Schema({
-    name:String,
-    age:Number,
-    email:String,
+const app = express();
+
+await mongoose.connect("mongodb://localhost:27017/school").then(()=>{
+  console.log("---------Connected DB------");
+})
+
+
+
+app.get("/",async (req,res)=>{
+  const studentData= await studentModel.find()
+  res.send(studentData)
+})
+
+
+// async function dbConnection(){
+//   await  mongoose.connect('mongodb://localhost:27017/school');
+//   const schema = mongoose.Schema({
+//     name:String,
+//     age:Number,
+//     email:String,
     
-  },
-  {
-    collection: "student"
-  }
-)
+//   },
+//   {
+//     collection: "student"
+//   }
+// )
 
-  const studentModel= mongoose.model('student',schema);
-  const result =await studentModel.find();
-  console.log(result);
-}
+//   const studentModel= mongoose.model('student',schema);
+//   const result =await studentModel.find();
+//   console.log(result);
+// }
 
-dbConnection()
+// dbConnection()
+
+app.listen(3210);
 
 
 //mongoDB package
