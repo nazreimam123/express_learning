@@ -1,4 +1,4 @@
-//Mongoose package  53, 54
+//Mongoose package  53, 54,55
 
 import mongoose from "mongoose";
 
@@ -6,6 +6,9 @@ import express from 'express';
 import studentModel from "./mongoose/model/studentModel.js";
 
 const app = express();
+
+app.use(express.json())
+
 
 await mongoose.connect("mongodb://localhost:27017/school").then(()=>{
   console.log("---------Connected DB------");
@@ -16,6 +19,30 @@ await mongoose.connect("mongodb://localhost:27017/school").then(()=>{
 app.get("/",async (req,res)=>{
   const studentData= await studentModel.find()
   res.send(studentData)
+})
+
+app.post("/save",async (req,res)=>{
+
+  console.log(req.body)
+
+  const {age,email,name} = req.body;
+  if(!age || !email || !name){
+    res.send({
+      message:"Data Not Stored",
+      success:false,
+      storeInfo:null
+    })
+
+    return  false
+
+  }
+
+  const studenData= await studentModel.create(req.body)
+  res.send({
+    message:"Data Stored",
+    success:true,
+    storeInfo:studenData 
+  })
 })
 
 
