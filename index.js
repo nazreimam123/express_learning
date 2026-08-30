@@ -46,6 +46,36 @@ app.post("/save",async (req,res)=>{
 })
 
 
+//56 PUT & DELETE
+
+app.put("/update/:id",async (req,res)=>{
+
+  const id = req.params.id;
+  console.log(req.body,id);
+
+  const studentData= await studentModel.findByIdAndUpdate(id,{
+    ...req.body
+  })
+
+  res.send({
+    message:"Data Updated",
+    success:true, 
+    info:studentData
+  })
+})
+
+app.delete("/delete/:id",async (req,res)=>{
+  const id = req.params.id;
+  const studentData= await   studentModel.findByIdAndDelete(id);
+
+  res.send({
+    message:"Data Deleted",
+    success:true,
+    info:studentData
+  })
+})
+
+
 // async function dbConnection(){
 //   await  mongoose.connect('mongodb://localhost:27017/school');
 //   const schema = mongoose.Schema({
