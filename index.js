@@ -2,12 +2,16 @@
 
 import mongoose from "mongoose";
 
+import cors from 'cors';
+
 import express from 'express';
 import studentModel from "./mongoose/model/studentModel.js";
 
 const app = express();
 
 app.use(express.json())
+
+app.use(cors());
 
 
 await mongoose.connect("mongodb://localhost:27017/school").then(()=>{
